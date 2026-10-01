@@ -47,7 +47,6 @@ export default defineConfig(
       globals: globals.browser,
     },
     plugins: {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       'css-modules': cssModulesPlugin,
       perfectionist,
       react,

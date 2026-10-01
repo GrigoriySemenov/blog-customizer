@@ -1,32 +1,34 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 import type { OptionType } from 'src/constants/articleProps';
 
 type UseEnterSubmit = {
   onChange?: (option: OptionType) => void;
   option: OptionType;
+  optionRef: React.RefObject<HTMLDivElement | null>;
 };
 
-export const useEnterSubmit = ({ onChange, option }: UseEnterSubmit): void => {
-  const optionRef = useRef<HTMLDivElement>(null);
-
+export const useEnterSubmit = ({
+  onChange,
+  option,
+  optionRef,
+}: UseEnterSubmit): void => {
   useEffect(() => {
     const optionHtml = optionRef.current;
 
     if (!optionHtml) return;
 
     const handleEnterKeyDown = (event: KeyboardEvent): void => {
-      if (document.activeElement === optionHtml && event.key === 'Enter') {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
         onChange?.(option);
       }
     };
 
     optionHtml.addEventListener('keydown', handleEnterKeyDown);
 
-    // не забываем удалять листенеры, при размонтировании компонента
-    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-    return () => {
+    return (): void => {
       optionHtml.removeEventListener('keydown', handleEnterKeyDown);
     };
-  }, [onChange, option]);
+  }, [onChange, option, optionRef]);
 };

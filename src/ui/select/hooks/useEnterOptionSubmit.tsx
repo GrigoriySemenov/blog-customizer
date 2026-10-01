@@ -17,7 +17,8 @@ export const useEnterOptionSubmit = ({
     const option = optionRef.current;
     if (!option) return;
     const handleEnterKeyDown = (event: KeyboardEvent): void => {
-      if (document.activeElement === option && event.key === 'Enter') {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
         onClick(value);
       }
     };
