@@ -11,7 +11,11 @@ export default defineConfig({
       typescript: true,
     }),
     react(),
-    readableClassnames(),
+    readableClassnames({
+      separator: {
+        beforeClassName: '-module__',
+      },
+    }),
     sassDts({
       enabledMode: ['development'],
       esmExport: true,
@@ -21,5 +25,7 @@ export default defineConfig({
   base: '',
   server: {
     open: true,
+    port: 8080,
+    strictPort: true,
   },
 });
