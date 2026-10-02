@@ -1,4 +1,3 @@
-/** @type {import('stylelint').Config} */
 const config = {
   extends: ['stylelint-config-standard-scss'],
   ignoreFiles: ['**/fonts/', '**/images/'],

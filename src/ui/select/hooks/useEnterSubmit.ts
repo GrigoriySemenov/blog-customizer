@@ -13,7 +13,8 @@ export const useEnterSubmit = ({ placeholderRef, onChange }: UseEnterSubmit): vo
     if (!placeholderEl) return;
 
     const handleEnterKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === 'Enter') {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
         onChange((isOpen: boolean) => !isOpen);
       }
     };
@@ -22,5 +23,5 @@ export const useEnterSubmit = ({ placeholderRef, onChange }: UseEnterSubmit): vo
     return (): void => {
       placeholderEl.removeEventListener('keydown', handleEnterKeyDown);
     };
-  }, []);
+  }, [placeholderRef, onChange]);
 };
